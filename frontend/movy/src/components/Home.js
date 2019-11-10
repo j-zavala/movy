@@ -24,6 +24,9 @@ const Home = () => {
     return (
         <>
             {/* <div>results: {(movies) ? movies.movies[0] : "nothing yet"}</div> */}
+            <HeroImage
+                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.heroImage.backdrop_path}`}
+            />
             <SearchBar />
             <Grid />
             <MovieThumb />

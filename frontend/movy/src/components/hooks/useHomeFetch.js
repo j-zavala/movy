@@ -23,7 +23,6 @@ export const useHomeFetch = () => {
             // we have to await 2x here. when we get data from the api, we want to parse that data into json, & that's async so we have to await.
             //fetch is built into javascript used to fetch data from endpoints
             const result = await (await fetch(endpoint)).json();
-            console.log(result.results);
             //prev is previous state
             setMovies(prev => ({
                 //spreads out all the properties in previous state
@@ -32,7 +31,7 @@ export const useHomeFetch = () => {
                 ...prev,
                 //we want to modify  our properties in the state, so type in properties movies and change what you want to do; that will override the properties that we spread here.
                 //results property contains all the movies
-                movies: [...result.results],
+                movies: [...result.results] || [],
                 //1st we want to check if we already have the hero image in our state & if we do, we don't need to place another there.
                 //so use short-circuit: if 1st is true, it keeps 1st image. Otherwise it will run 2nd
                 //place hero image if it doesn't appear in our state
