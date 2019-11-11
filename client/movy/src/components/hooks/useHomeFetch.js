@@ -5,6 +5,8 @@ export const useHomeFetch = () => {
     //Here we're creating 3 states, which we create by calling useState; useState takes the initial state (in this case an empty array)  and returns an empty array and a function to update this state.
     // MORE INFO: https://stackoverflow.com/questions/53165945/what-is-usestate-in-react
     //without empty array for movie, you get error. So now  you can try to loop over the array before we get something from the API.
+
+
     const [movies, setMovies] = useState({ movies: [] }); //initial state = empty movies array
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -23,7 +25,6 @@ export const useHomeFetch = () => {
             // we have to await 2x here. when we get data from the api, we want to parse that data into json, & that's async so we have to await.
             //fetch is built into javascript used to fetch data from endpoints
             const result = await (await fetch(endpoint)).json();
-            console.log(result.results);
             //prev is previous state
             setMovies(prev => ({
                 //spreads out all the properties in previous state
@@ -32,7 +33,7 @@ export const useHomeFetch = () => {
                 ...prev,
                 //we want to modify  our properties in the state, so type in properties movies and change what you want to do; that will override the properties that we spread here.
                 //results property contains all the movies
-                movies: [...result.results],
+                movies: [...result.results] || [],
                 //1st we want to check if we already have the hero image in our state & if we do, we don't need to place another there.
                 //so use short-circuit: if 1st is true, it keeps 1st image. Otherwise it will run 2nd
                 //place hero image if it doesn't appear in our state
