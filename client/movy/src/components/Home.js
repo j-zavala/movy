@@ -21,11 +21,16 @@ const Home = () => {
     //deconstruct array returned by custom hook
     const [{ movies, loading, error }, fetchMovies] = useHomeFetch();
     console.log(movies);
+
+    if (error) return <div>Something went wrong ...</div>;
+    if (!movies.movies[0]) return <Spinner />;
     return (
         <>
             {/* <div>results: {(movies) ? movies.movies[0] : "nothing yet"}</div> */}
             <HeroImage
                 image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.heroImage.backdrop_path}`}
+                title={movies.heroImage.original_title}
+                text={movies.heroImage.overview}
             />
             <SearchBar />
             <Grid />
