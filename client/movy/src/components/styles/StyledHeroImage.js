@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledHeroImage = styled.div`
+const StyledHeroImage = styled.div`
   background: ${props =>
     `linear-gradient(
       to bottom, rgba(0,0,0,0)
@@ -70,3 +70,6 @@ export const StyledHeroImage = styled.div`
     }
   }
 `;
+
+
+export default StyledHeroImage;
