@@ -66,11 +66,12 @@ const Home = () => {
                 ))
                 }
             </Grid>
-            //short-circuiting
             {loading && <Spinner />}
-            <LoadMoreBtn
-                text="Load more" callback={loadMoreMovies}
-            />
+            {currentPage < totalPages && !loading && (
+                <LoadMoreBtn
+                    text="Load more" callback={loadMoreMovies}
+                />
+            )}
         </>
     )
 }
