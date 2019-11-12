@@ -17,6 +17,8 @@ export const useHomeFetch = () => {
     const fetchMovies = async endpoint => {
         setError(false);
         setLoading(true);
+
+        const isLoadMore = endpoint.search('page');
         // try block is executed first; going to try and run this code; if it doesn't work, run the catch
         // in try block is where we grab our data
         try {
@@ -33,7 +35,10 @@ export const useHomeFetch = () => {
                 ...prev,
                 //we want to modify  our properties in the state, so type in properties movies and change what you want to do; that will override the properties that we spread here.
                 //results property contains all the movies
-                movies: [...result.results] || [],
+                movies:
+                    isLoadMore !== -1
+                        ? [...prev.movies, ...result.results]
+                        : [...result.results],
                 //1st we want to check if we already have the hero image in our state & if we do, we don't need to place another there.
                 //so use short-circuit: if 1st is true, it keeps 1st image. Otherwise it will run 2nd
                 //place hero image if it doesn't appear in our state
