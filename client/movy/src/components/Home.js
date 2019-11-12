@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     API_URL,
     API_KEY,
@@ -17,24 +17,45 @@ import LoadMoreBtn from './elements/LoadMoreBtn'
 //custom Hook
 import { useHomeFetch } from './hooks/useHomeFetch'
 
+import NoImage from "./images/no_image.jpg";
+
 const Home = () => {
     //deconstruct array returned by custom hook
-    const [{ movies, loading, error }, fetchMovies] = useHomeFetch();
-    console.log(movies);
+    const [
+        {
+            movies: { movies, heroImage, currentPage, totalPages },
+            loading,
+            error
+        }, fetchMovies
+    ] = useHomeFetch();
+    const [searchTerm, setSearchTerm] = useState('');
 
     if (error) return <div>Something went wrong ...</div>;
-    if (!movies.movies[0]) return <Spinner />;
+    if (!movies[0]) return <Spinner />;
     return (
         <>
-            {/* <div>results: {(movies) ? movies.movies[0] : "nothing yet"}</div> */}
             <HeroImage
-                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.heroImage.backdrop_path}`}
-                title={movies.heroImage.original_title}
-                text={movies.heroImage.overview}
+                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${heroImage.backdrop_path}`}
+                title={heroImage.original_title}
+                text={heroImage.overview}
             />
             <SearchBar />
-            <Grid />
-            <MovieThumb />
+            <Grid header={searchTerm ? 'Search Results' : 'Popular Movies'}>
+                {movies.map(movie => (
+                    <MovieThumb
+                        key={movie.id}
+                        clickable
+                        image={
+                            movie.poster_path
+                                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                                : NoImage
+                        }
+                        movieId={movie.id}
+                        movieName={movie.original_title}
+                    />
+                ))
+                }
+            </Grid>
             <Spinner />
             <LoadMoreBtn />
         </>
