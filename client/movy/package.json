@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.7.2",
+    "@reach/router": "^1.2.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-fontawesome": "^1.7.1",

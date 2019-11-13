@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Movie = () => <div>Movie</div>
+const Movie = ({ movieId }) => <div>Movie: {movieId}</div>
 
 export default Movie;
