@@ -30,6 +30,10 @@ const Home = () => {
     ] = useHomeFetch();
     const [searchTerm, setSearchTerm] = useState('');
     const searchMovies = search => {
+        const endpoint = search ? SEARCH_BASE_URL + search : POPULAR_BASE_URL;
+
+        setSearchTerm(search);
+        fetchMovies(endpoint);
 
     }
 
@@ -52,7 +56,7 @@ const Home = () => {
                 title={heroImage.original_title}
                 text={heroImage.overview}
             />
-            <SearchBar />
+            <SearchBar callback={searchMovies} />
             <Grid header={searchTerm ? 'Search Results' : 'Popular Movies'}>
                 {movies.map(movie => (
                     <MovieThumb
