@@ -6,6 +6,7 @@
     "@babel/runtime": "^7.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-fontawesome": "^1.7.1",
     "react-scripts": "3.2.0",
     "styled-components": "^4.4.1"
   },
