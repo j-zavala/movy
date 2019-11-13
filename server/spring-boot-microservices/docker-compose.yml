@@ -23,13 +23,21 @@ services:
     command: 'mvn spring-boot:run'
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-  users-api:
+  postgresdev:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=gluecool
+      - POSTGRES_USER=johnnyzavala
+      - POSTGRES_DB=movy_db
+  movy-api:
     image: maven:3.6.1-jdk-8
     ports:
       - '8081:8081'
     working_dir: /app
     volumes:
-      - ./users-api:/app
+      - ./movy-api:/app
     depends_on:
       - eureka
     command: 'mvn spring-boot:run'
