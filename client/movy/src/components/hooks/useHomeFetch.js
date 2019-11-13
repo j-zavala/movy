@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_URL, API_KEY } from '../../config';
+import { POPULAR_BASE_URL } from '../../config'
 
 export const useHomeFetch = () => {
     //Here we're creating 3 states, which we create by calling useState; useState takes the initial state (in this case an empty array)  and returns an empty array and a function to update this state.
@@ -59,7 +59,7 @@ export const useHomeFetch = () => {
     // When using hooks, we're not thinking about lifestyles, just about how our next render will look.
     //How often will this effect run? will run every render (not good, we want to run this just when we started the app and have mounted this component). So provide a dependency array, []
     useEffect(() => {
-        fetchMovies(`${API_URL}movie/popular?api_key=${API_KEY}`);
+        fetchMovies(POPULAR_BASE_URL);
         // [movies] tells React to skip applying an effect if certain values haven’t changed between re-renders.
         //https://reacttraining.com/blog/when-to-use-functions-in-hooks-dependency-array/
     }, []); //optional second argument to useEffect (an array): Says only re-run the effect if movies changes
