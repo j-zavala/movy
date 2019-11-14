@@ -4,7 +4,7 @@ import { API_KEY, API_URL } from '../../config';
 
 export const useMovieFetch = movieId => {
     const [movie, setMovie] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
     //Going to use movieId inside useCallback, meaning this function will change on every render b/c we are depending on an external value (movieId).
