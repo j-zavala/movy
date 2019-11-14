@@ -10,6 +10,7 @@ export const useMovieFetch = movieId => {
     //Going to use movieId inside useCallback, meaning this function will change on every render b/c we are depending on an external value (movieId).
     //We added dependency array with value [movieId], means that the function will only change when the movieId changes. This prevents an infinity loop.
     //We didn't send endpoint to async b/c we actually need two endpoints b/c first we get the basic data for a movie, then we fetch the movie credits from which we separate directors and actors.
+    //the combo of [] + useCallback means that it will only change when movieId changes, so it's the same movie id all the time
     const fetchData = useCallback(async () => {
         setError(false);
         setLoading(true);
@@ -32,7 +33,7 @@ export const useMovieFetch = movieId => {
 
     useEffect(() => {
         fetchData();
-    })
+    }, [fetchData])
 
     //Here, we are not returning a function that grab data for us b/c we are just fetching this when we mount this component, we are not going to have something like Load More button.
     return [movie, loading, error];

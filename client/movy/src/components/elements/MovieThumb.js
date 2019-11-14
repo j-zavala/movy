@@ -5,6 +5,7 @@ import { StyledMovieThumb } from '../styles/StyledMovieThumb'
 const MovieThumb = ({ image, movieId, clickable }) => (
     <StyledMovieThumb>
         {clickable ? (
+            /* here where we link to the movie, we are also sending movie id as a parameter */
             <Link to={`/${movieId}`}>
                 <img className="clickable" src={image} alt="moviethumb" />
             </Link>
@@ -12,7 +13,7 @@ const MovieThumb = ({ image, movieId, clickable }) => (
                 <img src={image} alt="moviethumb" />
             )
         }
-    </StyledMovieThumb>
+    </StyledMovieThumb >
 )
 
 export default MovieThumb;
