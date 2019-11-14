@@ -1,6 +1,6 @@
 //useCallback stops our useEffect to go into an infinity loop
 import React, { useState, useEffect, useCallback } from 'react';
-import { API_KEY, API_URL, CREDITS_BASE_URL } from '../../config';
+import { API_KEY, API_URL } from '../../config';
 
 export const useMovieFetch = movieId => {
     const [movie, setMovie] = useState([]);
@@ -18,6 +18,7 @@ export const useMovieFetch = movieId => {
         try {
             //endpoint grabs data for particular movie
             const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+            const result = await (await fetch(endpoint)).json();
             //calling this endpoint gets us credits of the specific movie
             const creditsEndpoint = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
             const creditsResult = await (await fetch(creditsEndpoint)).json();
@@ -26,7 +27,7 @@ export const useMovieFetch = movieId => {
                 member => member.job === 'Director'
             );
 
-            setState({
+            setMovie({
                 ...result,
                 actors: creditsResult.cast,
                 directors

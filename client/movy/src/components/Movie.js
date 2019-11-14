@@ -7,11 +7,11 @@ import MovieInfoBar from './elements/MovieInfoBar';
 import Grid from './elements/Grid';
 import Actor from './elements/Actor';
 import Spinner from './elements/Spinner';
-import useMoveFetch from './hooks/useMovieFetch'
+import { useMovieFetch } from './hooks/useMovieFetch'
 
 //movieId is the one we sent in that we grab from the URL
 const Movie = ({ movieId }) => {
-    const [movie, loading, error] = useMoveFetch(movieId);
+    const [movie, loading, error] = useMovieFetch(movieId);
 
     if (error) return <div>"Sorry! Something went wrong..."</div>
     if (loading) return <Spinner />;
@@ -19,7 +19,7 @@ const Movie = ({ movieId }) => {
     return (
         <>
             <Navigation movie={movie.original_title} />
-            <MovieInfo />
+            <MovieInfo movie={movie} />
             <MovieInfoBar />
             <Grid>
                 <Actor />
