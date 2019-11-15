@@ -20,11 +20,11 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledRMDBLogo = styled.img`
-  width: 250px;
-  margin-top: 20px;
+  width: 90px;
+  margin-top: 10px;
 
   @media screen and (max-width: 500px) {
-    width: 150px;
+    width: 80px;
     margin-top: 5px;
   }
 `;
