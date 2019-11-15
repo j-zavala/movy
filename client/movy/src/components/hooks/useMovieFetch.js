@@ -40,8 +40,20 @@ export const useMovieFetch = movieId => {
     }, [movieId])
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData])
+        if (localStorage[movieId]) {
+            //Grabbing from local storage
+            setMovie(JSON.parse(localStorage[movieId]));
+            setLoading(false);
+        } else {
+            //Grabbing from the API
+            fetchData();
+        }
+    }, [fetchData, movieId]);
+
+    useEffect(() => {
+        //
+        localStorage.setItem(movieId, JSON.stringify(movie));
+    }, [movieId, movie]);
 
     //Here, we are not returning a function that grab data for us b/c we are just fetching this when we mount this component, we are not going to have something like Load More button.
     return [movie, loading, error];

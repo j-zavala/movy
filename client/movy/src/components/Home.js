@@ -21,14 +21,14 @@ import NoImage from "./images/no_image.jpg";
 
 const Home = () => {
     //deconstruct array returned by custom hook
+    const [searchTerm, setSearchTerm] = useState('');
     const [
         {
             movies: { movies, heroImage, currentPage, totalPages },
             loading,
             error
         }, fetchMovies
-    ] = useHomeFetch();
-    const [searchTerm, setSearchTerm] = useState('');
+    ] = useHomeFetch(searchTerm);
     const searchMovies = search => {
         const endpoint = search ? SEARCH_BASE_URL + search : POPULAR_BASE_URL;
 

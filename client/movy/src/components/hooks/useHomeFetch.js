@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { POPULAR_BASE_URL } from '../../config'
 
-export const useHomeFetch = () => {
+export const useHomeFetch = searchTerm => {
     //Here we're creating 3 states, which we create by calling useState; useState takes the initial state (in this case an empty array)  and returns an empty array and a function to update this state.
     // MORE INFO: https://stackoverflow.com/questions/53165945/what-is-usestate-in-react
     //without empty array for movie, you get error. So now  you can try to loop over the array before we get something from the API.
@@ -60,6 +60,14 @@ export const useHomeFetch = () => {
     //How often will this effect run? will run every render (not good, we want to run this just when we started the app and have mounted this component). So provide a dependency array, []
     useEffect(() => {
         fetchMovies(POPULAR_BASE_URL);
+        if (sessionStorage.homeState) {
+            //Grabbing from session storage
+            setMovies(JSON.parse(sessionStorage.homeState));
+            setLoading(false);
+        } else {
+            //grabbing from API
+            fetchMovies(POPULAR_BASE_URL);
+        }
         // [movies] tells React to skip applying an effect if certain values haven’t changed between re-renders.
         //https://reacttraining.com/blog/when-to-use-functions-in-hooks-dependency-array/
     }, []); //optional second argument to useEffect (an array): Says only re-run the effect if movies changes
@@ -69,5 +77,13 @@ export const useHomeFetch = () => {
     //This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run. If you pass an empty array ([]), the props and state inside the effect will always have their initial values. 
 
     //return states and function so you can use them inside Home.js component
+
+    useEffect(() => {
+        if (!searchTerm) {
+            //Write to session storage
+            sessionStorage.setItem('homeState', JSON.stringify(movies));
+        }
+
+    }, [searchTerm, movies]);
     return [{ movies, loading, error }, fetchMovies]
 }
