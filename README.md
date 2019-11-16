@@ -46,7 +46,7 @@ I was then in a good place to deploy to production.
 
 ## Dependencies
 + Reach Router
-https://www.npmjs.com/package/reach-router
+https://www.npmjs.com/package/@reach/router
 + Styled Components
 https://www.npmjs.com/package/styled-components
 + React
